@@ -18,7 +18,7 @@ class MyApp(App):
 		self.partyonic = TextInput()
 		self.clas = TextInput()
 		self.temp = TextInput()
-		self.lab = Label()
+		self.lab = Label(size=(400, 100))
 		l = GridLayout(cols=2)
 		bl = BoxLayout(orientation='vertical')
 		bt = Button(on_press=self.submit, text="Отправить")
