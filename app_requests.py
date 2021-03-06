@@ -5,13 +5,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
-from functools import partial
 
-from kivy.config import Config
-Config.set('graphics', 'resizable', 0)
-
-from kivy.core.window import Window
-Window.size = (400, 600)
 
 class MyApp(App):
 
@@ -21,11 +15,10 @@ class MyApp(App):
 		self.partyonic = TextInput()
 		self.clas = TextInput()
 		self.temp = TextInput()
+		self.lab = Label(size=(400, 100))
 		l = GridLayout(cols=2)
 		bl = BoxLayout(orientation='vertical')
 		bt = Button(on_press=self.submit, text="Отправить")
-		#bt = Button(on_press=self.callback) #on_press=partial(self.callback, temp)
-		#bt.bind(on_press=self.callback)
 		
 		l.add_widget(Label(text="Введите своё Имя"))
 		l.add_widget(self.nam)
@@ -44,16 +37,22 @@ class MyApp(App):
 
 		bl.add_widget(l)
 		bl.add_widget(bt)
+		#bl.add_widget(self.lab)
 		
 		return bl
 
 	def submit(self, obj):
-
-		url = "https://licei1.000webhostapp.com/get.php"
-
-		f = requests.get(f"{url}?name={self.nam.text}&surname={self.surname.text}&patryonic={self.partyonic.text}&class={self.clas.text}&temperature={self.temp.text}")
 		
+		url = f"https://licei1.000webhostapp.com/temperature.php?name={self.nam.text}&surname={self.surname.text}&patryonic={self.partyonic.text}&class={self.clas.text}&temperature={self.temp.text}"
+
+		R = requests.get(url)
+
+		self.nam.text = ""
+		self.surname.text = ""
+		self.partyonic.text = ""
+		self.clas.text = ""
+		self.temp.text = ""
+
 
 if __name__ == '__main__':
 	MyApp().run()
-
