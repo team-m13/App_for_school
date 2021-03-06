@@ -36,7 +36,7 @@ class MyApp(App):
 					"temperature" : self.temp}
 
 			enc_data = urllib.parse.urlencode(data)
-			url = "https://licei1.000webhostapp.com/get.php"
+			url = "https://licei1.000webhostapp.com/temperature.php?"
 
 			f = urllib.request.urlopen(url + "?" + enc_data)
 		except Exception as e:
